@@ -14,7 +14,7 @@ autocmd FileType go retab
 
 
 
-
+set noswapfile
 set cursorline " Highlights the current line in the editor
 set hidden " Hide unused buffers
 set autoindent " Indent a new line
@@ -147,6 +147,7 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>t <cmd>Telescope<cr>
 
 autocmd FileType markdown colorscheme catppuccin-frappe
+autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'venv', '.venv', 'setup.cfg', 'setup.py', 'pyproject.toml', 'pyrightconfig.json']
 
 lua << EOF
 require'dashboard'.setup{
