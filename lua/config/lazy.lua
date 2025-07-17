@@ -22,6 +22,7 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>h", "<cmd>help option-list<cr>")
 vim.keymap.set("n", "y", '"+y', { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>us", "<cmd>.! cmp-us<cr>")
 
 -- Proper shifting/indenting
 vim.opt.shiftwidth = 2
@@ -36,6 +37,16 @@ vim.opt.syntax = "enable"
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.scrolloff = 5
+vim.opt.list = true
+vim.opt.listchars = {
+  tab = "→ ",         -- Tab character
+  trail = "·",        -- Trailing whitespace
+  extends = "»",      -- Lines that extend past the window
+  precedes = "«",     -- Lines that precede the window
+  space = "·",        -- Normal space (optional—use with care)
+}
+
+
 
 vim.opt.swapfile = false
 vim.opt.clipboard = "unnamedplus"

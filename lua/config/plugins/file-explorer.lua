@@ -7,6 +7,9 @@ return {
     keys = {
       {"<leader>n", "<cmd>NERDTreeToggle<cr>", desc = "Toggle NERDTree", mode = "n"},
     },
+    config = function()
+      vim.g.NERDTreeWinPos = "right"
+    end
  },
   {
     "nvim-telescope/telescope.nvim",
@@ -21,4 +24,7 @@ return {
       require("telescope").setup({})
     end
   },
+  {
+    "tiagofumo/vim-nerdtree-syntax-highlight"
+  }
 }
