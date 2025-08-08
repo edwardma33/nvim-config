@@ -23,6 +23,18 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>h", "<cmd>help option-list<cr>")
 vim.keymap.set("n", "y", '"+y', { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>us", "<cmd>.! cmp-us<cr>")
+vim.keymap.set("n", "<leader>st", "<cmd>.! cmp-structtag<cr>")
+
+-- autocmds
+vim.api.nvim_create_autocmd("Filetype", {
+  pattern = "go",
+  callback = function()
+    vim.bo.expandtab = true
+    vim.bo.tabstop = 2
+    vim.bo.shiftwidth = 2
+    vim.bo.softtabstop = 2
+  end,
+})
 
 -- Proper shifting/indenting
 vim.opt.shiftwidth = 2
@@ -51,6 +63,19 @@ vim.opt.listchars = {
 vim.opt.swapfile = false
 vim.opt.clipboard = "unnamedplus"
 
+vim.diagnostic.config({
+  virtual_text = {
+    prefix = "●", -- or "■", "▶", "◆", etc.
+    spacing = 2,
+    source = "always",
+  },
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
+})
+
+
 -- Setup lazy.nvim
 require("lazy").setup({
   spec = {
@@ -61,7 +86,7 @@ require("lazy").setup({
   -- colorscheme that will be used when installing plugins.
   install = { colorscheme = { "habamax" } },
   -- automatically check for plugin updates
-  checker = { enabled = true },
+  checker = { enabled = true, auto_update = true, },
 })
 -- In init.lua
 vim.api.nvim_set_hl(0, "markdownItalic", { italic = true })

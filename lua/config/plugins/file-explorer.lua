@@ -18,10 +18,16 @@ return {
     },
     keys = {
       {"<leader>gd", "<cmd>Telescope lsp_definitions<cr>", desc = "Go to definition", mode = "n"},
-      {"<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find files", mode = "n"}
+      {"<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find files", mode = "n"},
+      {"<leader>D", "<cmd>Telescope diagnostics<cr>", desc = "Show errors", mode = "n"}
     },
+    lazy = false,
     config = function ()
-      require("telescope").setup({})
+      require("telescope").setup({
+        defaults = {
+          wrap_results = true,
+        }
+      })
     end
   },
   {
