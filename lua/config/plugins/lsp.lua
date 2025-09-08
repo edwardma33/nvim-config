@@ -37,6 +37,7 @@ return {
     config = function()
       local lspconfig = require("lspconfig")
       lspconfig.gopls.setup({})
+      lspconfig.templ.setup({})
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities.textDocument.completion.completionItem.snippetSupport = true
