@@ -1,9 +1,0 @@
-{
-    "semanticTokens.enable": true,
-    "python.pythonPath": "/Users/edwardma33/hoo/venv/bin/python",
-    "python.analysis.extraPaths": [
-    "/Users/edwardma33/hoo/venv/lib/python3.11/site-packages"
-  ]
-}
-
-

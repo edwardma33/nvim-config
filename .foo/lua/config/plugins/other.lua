@@ -1,4 +1,5 @@
 return {
+  --[[
   {
   'nvimdev/dashboard-nvim',
     event = 'VimEnter',
@@ -13,9 +14,16 @@ return {
     end,
     dependencies = { {'nvim-tree/nvim-web-devicons'}}
   },
-{
-  "iamcco/markdown-preview.nvim",
-  cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-  ft = { "markdown" },
-}
+  ]]
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+  },
+  {
+    'numToStr/Comment.nvim',
+    opts = {
+        -- add any options here
+    }
+  },
 }

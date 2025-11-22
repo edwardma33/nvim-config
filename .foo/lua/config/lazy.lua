@@ -25,6 +25,18 @@ vim.keymap.set("n", "y", '"+y', { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>us", "<cmd>.! cmp-us<cr>")
 vim.keymap.set("n", "<leader>st", "<cmd>.! cmp-structtag<cr>")
 
+vim.diagnostic.config({
+  virtual_text = false,  -- disable inline text
+  float = {
+    show_header = true,
+    source = true,
+    border = "rounded",
+  },
+})
+
+-- Show diagnostics in a float when you hover
+vim.keymap.set("n", "K", vim.diagnostic.open_float, { desc = "Show diagnostics" })
+
 -- autocmds
 vim.api.nvim_create_autocmd("Filetype", {
   pattern = "go",
@@ -92,4 +104,4 @@ require("lazy").setup({
 vim.api.nvim_set_hl(0, "markdownItalic", { italic = true })
 vim.api.nvim_set_hl(0, "markdownBold", { bold = true })
 
-vim.cmd("colorscheme everforest")
+vim.cmd("colorscheme catppuccin-macchiato")

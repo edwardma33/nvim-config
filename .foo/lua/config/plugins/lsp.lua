@@ -25,54 +25,106 @@ return {
   {
     "neovim/nvim-lspconfig",
   },
+{
+  "mfussenegger/nvim-jdtls",
+  ft = { "java" },
+  config = function()
+    local jdtls = require("jdtls")
+    local home = os.getenv("HOME")
+    local workspace = home .. "/.local/share/eclipse/" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+
+    local config = {
+      cmd = { "jdtls", "-data", workspace },
+      root_dir = require("jdtls.setup").find_root({ "gradlew", "mvnw", ".git" }),
+    }
+
+    jdtls.start_or_attach(config)
+  end
+},
   {
     "williamboman/mason.nvim",
+    dependencies = { "folke/neodev.nvim" },
     config = function()
       require("mason").setup()
-    end,
-  },
+      require("neodev").setup()
 
-  {
-    "williamboman/mason-lspconfig.nvim",
-    config = function()
-      local lspconfig = require("lspconfig")
-      lspconfig.gopls.setup({})
-      lspconfig.templ.setup({})
-
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-      lspconfig.html.setup({
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      -- Lua config
+      vim.lsp.config["lua_ls"] = {
         capabilities = capabilities,
-      })
-      lspconfig.emmet_ls.setup({})
-      lspconfig.htmx.setup({})
-      lspconfig.ts_ls.setup({})
-      lspconfig.tailwindcss.setup({
+        settings = {
+          Lua = {
+            runtime = { version = "LuaJIT" },
+            diagnostics = { globals = {"vim"} },
+            workspace = {
+              checkThirdParty = false,
+              library = vim.api.nvim_get_runtime_file("", true),
+            }
+          }
+        }
+      }
+
+      -- typescript config
+      vim.lsp.config["ts_ls"] = {
+        filetypes = {
+          "html", "css", "javascript", "javascriptreact", "typescript", "typescriptreact", "svelte", "vue", "templ", "astro"
+        }
+      }
+
+      -- html and tailwindcss config
+
+      vim.lsp.config["html"] = {
+        capabilities = capabilities
+      }
+
+      vim.lsp.config["tailwindcss"] = {
         capabilities = capabilities,
         filetypes = {
-          "html",
-          "css",
-          "javascript",
-          "javascriptreact",
-          "typescript",
-          "typescriptreact",
-          "svelte",
-          "vue",
-          "astro",
-        },
-        init_options = {
-          userLanguages = {
-            html = "html",
-          },
-        },
+          "html", "css", "javascript", "javascriptreact", "typescript", "typescriptreact", "svelte", "vue", "templ", "astro"
+        }
+      }
+
+      -- java config
+      vim.lsp.config["jdtls"] = {
+        cmd = { "jdtls" },
+        root_dir = vim.fs.root(0, { "mvnw", "gradlew", ".git" }),
+        -- Each project gets its own workspace folder
+        on_new_config = function(config, root_dir)
+          config.cmd = {
+            "jdtls",
+            "-data",
+            vim.fn.stdpath("data") .. "/jdtls-workspace/" .. vim.fn.fnamemodify(root_dir, ":p:h:t"),
+          }
+        end,
+      }
+
+      for _, server in ipairs({
+        "gopls",
+        "clangd",
+        "pyright",
+        "emmet_ls",
+        "ts_ls"
+      }) do
+        vim.lsp.config[server] = {capabilities = capabilities}
+      end
+
+      vim.lsp.enable({
+        "gopls",
+        "lua_ls",
+        "templ",
+        "ts_ls",
+        "html",
+        "emmet_ls",
+        "htmx",
+        "tailwindcss",
+        "pyright",
+        "jdtls",
+        "clangd",
+        "yamlls",
+        "dockerls",
+        "docker_compose_language_service",
+        "vscode_spring_boot_tools",
       })
-      lspconfig.jdtls.setup({})
-      lspconfig.pyright.setup({})
-      lspconfig.clangd.setup({})
-      lspconfig.yamlls.setup({})
-      lspconfig.dockerls.setup({})
-      lspconfig.docker_compose_language_service.setup({})
     end,
   },
   {
