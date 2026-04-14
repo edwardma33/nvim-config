@@ -40,10 +40,58 @@ vim.lsp.config["lua_ls"] = {
 }
 
 vim.lsp.config["superhtml"] = {
-  pattern = { "html", "templ" }
+  capabilities = cmp_cap,
+  pattern = { "html", "templ" },
 }
 
+vim.lsp.config["marksman"] = {
+  capabilities = cmp_cap,
+  pattern = { "markdown", "md" }
+}
+
+vim.lsp.config["sqls"] = {
+  capabilities = cmp_cap,
+  filetypes = { "sql" },
+  settings = {
+    sqls = {
+      connections = {
+        {
+          name = "local",
+          driver = "postgresql",
+          dataSourceName = "user=dev password=password123 dbname=goratin host=localhost port=5433 sslmode=disable",
+        },
+      },
+      defaultConnection = "local",
+    },
+  }
+}
+
+vim.lsp.config("bashls", {
+  capabilities = cmp_cap,
+  filetypes = {"sh", "bash"},
+})
+
+vim.lsp.config("pyright", {
+  settings = {
+    python = {
+      analysis = {
+        typeCheckingMode = "off"
+      }
+    }
+  }
+})
+
+vim.lsp.config("sourcekit", {
+  cmd = { "xcrun", "sourcekit-lsp" },
+  filetypes = { "swift", "objective-c", "objective-cpp" },
+  root_dir = function(bufnr)
+    return vim.fs.root(bufnr, { "Package.swift", ".git" })
+  end,
+  capabilities = cmp_cap,
+})
+
 for _, server in ipairs({
+  "rust_analyzer",
   "gopls",
   "clangd",
   "pyright",
@@ -51,11 +99,17 @@ for _, server in ipairs({
   "ts_ls",
   "superhtml",
   "html",
+  "cssls"
 }) do
   vim.lsp.config[server] = {capabilities = cmp_cap}
 end
 
 vim.lsp.enable({
+  "sourcekit-lsp",
+  "cssls",
+  "bashls",
+  "rust_analyzer",
+  "marksman",
   "gopls",
   "lua_ls",
   "templ",
@@ -69,8 +123,9 @@ vim.lsp.enable({
   "clangd",
   "yamlls",
   "dockerls",
-  "docker_compose_language_service",
+  "docker_compose_langserver",
   "vscode_spring_boot_tools",
+  "sqls"
 })
 
 
