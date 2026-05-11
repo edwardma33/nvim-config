@@ -26,3 +26,10 @@ vim.keymap.set('n', '<leader>t', ":lua MiniFiles.open()<CR>")
 vim.keymap.set('v', '<leader>oa', function ()
   require('opencode').ask("@this: ", { submit = true })
 end)
+
+vim.keymap.set("n", '<leader>l', function ()
+  local wrapped = not vim.wo.wrap
+
+  vim.wo.wrap = wrapped
+  vim.wo.linebreak = wrapped
+end, { desc = "Toggle wrap and linebreak" })
