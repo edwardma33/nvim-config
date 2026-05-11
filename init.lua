@@ -33,7 +33,8 @@ vim.pack.add({
   { src = gh("folke/snacks.nvim") },
   { src = gh("NickvanDyke/opencode.nvim") },
   { src = gh("folke/tokyonight.nvim") },
-  { src = gh("andersevenrud/nordic.nvim") }
+  { src = gh("andersevenrud/nordic.nvim") },
+  { src = gh("sainnhe/gruvbox-material") },
 })
 
 -- my modules
@@ -79,4 +80,16 @@ vim.api.nvim_create_autocmd("Filetype", {
   end,
 })
 
-vim.cmd.colorscheme("catppuccin-frappe")
+vim.cmd.colorscheme("gruvbox-material")
+
+if vim.g.colors_name == "gruvbox-material" then
+  local handle = io.popen("defaults read -g AppleInterfaceStyle 2>/dev/null")
+  local result = handle:read("*a")
+  handle:close()
+
+  if result:match("Dark") then
+    vim.o.background = "dark"
+  else
+    vim.o.background = "light"
+  end
+end
