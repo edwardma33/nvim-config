@@ -59,6 +59,12 @@ require ("mason").setup()
 require('rose-pine').setup({
   variant = "moon",
 })
+require('catppuccin').setup({
+  background = {
+    light = "latte",
+    dark = "macchiato"
+  }
+})
 require("render-markdown").setup({})
 require("lazydev").setup()
 require("snacks").setup()
@@ -80,10 +86,10 @@ vim.api.nvim_create_autocmd("Filetype", {
   end,
 })
 
-vim.cmd.colorscheme("gruvbox-material")
+vim.cmd.colorscheme("catppuccin")
 
-if vim.g.colors_name == "gruvbox-material" then
-  local handle = io.popen("defaults read -g AppleInterfaceStyle 2>/dev/null")
+local handle = io.popen("defaults read -g AppleInterfaceStyle 2>/dev/null")
+if handle ~= nil then
   local result = handle:read("*a")
   handle:close()
 
