@@ -23,6 +23,12 @@ vim.keymap.set('n', '<C-w><C-`>', ":split | wincmd j | terminal<CR>")
 
 vim.keymap.set('n', '<leader>t', ":lua MiniFiles.open()<CR>")
 
+vim.keymap.set('n', '<leader>xb', ":XcodebuildBuild<CR>", { desc = "Xcodebuild build" })
+vim.keymap.set('n', '<leader>xr', ":XcodebuildBuildRun<CR>", { desc = "Xcodebuild build and run" })
+vim.keymap.set('n', '<leader>xt', ":XcodebuildTest<CR>", { desc = "Xcodebuild test" })
+vim.keymap.set('n', '<leader>xp', ":XcodebuildPicker<CR>", { desc = "Xcodebuild picker" })
+vim.keymap.set('n', '<leader>xs', ":XcodebuildSetup<CR>", { desc = "Xcodebuild setup" })
+
 vim.keymap.set('v', '<leader>oa', function ()
   require('opencode').ask("@this: ", { submit = true })
 end)

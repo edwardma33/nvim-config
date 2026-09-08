@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "agent-orange": {
+      "rev": "41b1b7b7172df12a2c875527c41f803d41882348",
+      "src": "https://github.com/edwardma33/agent-orange"
+    },
     "auto-pairs": {
       "rev": "39f06b873a8449af8ff6a3eee716d3da14d63a76",
       "src": "https://github.com/jiangmiao/auto-pairs"
@@ -11,6 +15,10 @@
     "everforest": {
       "rev": "484dd560dccb2d2842685c441ad2b54a54ffef1b",
       "src": "https://github.com/sainnhe/everforest"
+    },
+    "grug-far.nvim": {
+      "rev": "5506c2f59dc9ab2ed6c233585412b24d31d51521",
+      "src": "https://github.com/MagicDuck/grug-far.nvim"
     },
     "gruvbox-material": {
       "rev": "11d779b26a9ab2b3db8c22c6ac9fb6e8ed4fea79",
@@ -35,6 +43,10 @@
     "mason.nvim": {
       "rev": "57e5a8addb8c71fb063ee4acda466c7cf6ad2800",
       "src": "https://github.com/mason-org/mason.nvim"
+    },
+    "material.nvim": {
+      "rev": "92f7366a9315cd386bc4fa4d716fde375dda210f",
+      "src": "https://github.com/marko-cerovac/material.nvim"
     },
     "mini.files": {
       "rev": "22c64f010eef047ed270e29e7cc266cd4740787e",
@@ -75,6 +87,10 @@
     "nordic.nvim": {
       "rev": "c88388b2a5f6e621df2718c316b856d4971bb89d",
       "src": "https://github.com/andersevenrud/nordic.nvim"
+    },
+    "nui.nvim": {
+      "rev": "de740991c12411b663994b2860f1a4fd0937c130",
+      "src": "https://github.com/MunifTanjim/nui.nvim"
     },
     "nvim": {
       "rev": "da33755d00e09bff2473978910168ff9ea5dc453",
@@ -147,6 +163,10 @@
     "vim-startuptime": {
       "rev": "b6f0d93f6b8cf6eee0b4c94450198ba2d6a05ff6",
       "src": "https://github.com/dstein64/vim-startuptime"
+    },
+    "xcodebuild.nvim": {
+      "rev": "633eb71c0b354581837025581b7261dbe5361226",
+      "src": "https://github.com/wojciech-kulik/xcodebuild.nvim"
     }
   }
 }

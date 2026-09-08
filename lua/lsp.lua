@@ -11,7 +11,8 @@ require("nvim-treesitter.configs").setup({
     "lua",
     "go",
     "python",
-    "java"
+    "java",
+    "swift"
   },
   highlight = { enable = true },
 })
@@ -49,20 +50,22 @@ vim.lsp.config["marksman"] = {
   pattern = { "markdown", "md" }
 }
 
+local sqls_database_url = vim.env.NVIM_SQLS_DATABASE_URL
+
 vim.lsp.config["sqls"] = {
   capabilities = cmp_cap,
   filetypes = { "sql" },
   settings = {
-    sqls = {
+    sqls = sqls_database_url and {
       connections = {
         {
           name = "local",
           driver = "postgresql",
-          dataSourceName = "user=dev password=password123 dbname=goratin host=localhost port=5433 sslmode=disable",
+          dataSourceName = sqls_database_url,
         },
       },
       defaultConnection = "local",
-    },
+    } or {},
   }
 }
 
@@ -83,9 +86,37 @@ vim.lsp.config("pyright", {
 
 vim.lsp.config("sourcekit", {
   cmd = { "xcrun", "sourcekit-lsp" },
-  filetypes = { "swift", "objective-c", "objective-cpp" },
-  root_dir = function(bufnr)
-    return vim.fs.root(bufnr, { "Package.swift", ".git" })
+  filetypes = { "swift", "objc", "objcpp" },
+  root_dir = function(bufnr, on_dir)
+    local path = vim.api.nvim_buf_get_name(bufnr)
+    local dir = vim.fs.dirname(path)
+
+    while dir do
+      if vim.uv.fs_stat(dir .. "/buildServer.json")
+        or vim.uv.fs_stat(dir .. "/Package.swift")
+      then
+        on_dir(dir)
+        return dir
+      end
+
+      for name, type in vim.fs.dir(dir) do
+        if type == "directory" and (name:match("%.xcworkspace$") or name:match("%.xcodeproj$")) then
+          on_dir(dir)
+          return dir
+        end
+      end
+
+      if vim.uv.fs_stat(dir .. "/.git") then
+        on_dir(dir)
+        return dir
+      end
+
+      local parent = vim.fs.dirname(dir)
+      if parent == dir then
+        return nil
+      end
+      dir = parent
+    end
   end,
   capabilities = cmp_cap,
 })
@@ -105,7 +136,7 @@ for _, server in ipairs({
 end
 
 vim.lsp.enable({
-  "sourcekit-lsp",
+  "sourcekit",
   "cssls",
   "bashls",
   "rust_analyzer",
@@ -149,4 +180,3 @@ cmp.setup({
     { name = "nvim_lsp" },
   },
 })
-

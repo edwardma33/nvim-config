@@ -35,6 +35,11 @@ vim.pack.add({
   { src = gh("folke/tokyonight.nvim") },
   { src = gh("andersevenrud/nordic.nvim") },
   { src = gh("sainnhe/gruvbox-material") },
+  { src = gh("MagicDuck/grug-far.nvim") },
+  { src = gh("MunifTanjim/nui.nvim") },
+  { src = gh("wojciech-kulik/xcodebuild.nvim") },
+  { src = gh("marko-cerovac/material.nvim") },
+  { src = gh("edwardma33/agent-orange") },
 })
 
 -- my modules
@@ -68,6 +73,8 @@ require('catppuccin').setup({
 require("render-markdown").setup({})
 require("lazydev").setup()
 require("snacks").setup()
+require("grug-far")
+require("xcodebuild").setup({})
 
 -- start commands
 vim.api.nvim_create_autocmd("CursorHold", {
@@ -86,16 +93,15 @@ vim.api.nvim_create_autocmd("Filetype", {
   end,
 })
 
-vim.cmd.colorscheme("catppuccin")
+local function system_uses_dark_appearance()
+  local handle = io.popen("defaults read -g AppleInterfaceStyle 2>/dev/null")
+  if handle == nil then
+    return vim.o.background == "dark"
+  end
 
-local handle = io.popen("defaults read -g AppleInterfaceStyle 2>/dev/null")
-if handle ~= nil then
   local result = handle:read("*a")
   handle:close()
-
-  if result:match("Dark") then
-    vim.o.background = "dark"
-  else
-    vim.o.background = "light"
-  end
+  return result:match("Dark") ~= nil
 end
+
+vim.cmd.colorscheme(system_uses_dark_appearance() and "agent_orange" or "agent_orange_light")
