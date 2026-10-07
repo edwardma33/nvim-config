@@ -140,6 +140,10 @@
       "rev": "fe7cfe9800a182274d0f868a74b7263b8c0c020b",
       "src": "https://github.com/folke/snacks.nvim"
     },
+    "spring-boot.nvim": {
+      "rev": "eea95b752bceb6ca410b3e2d87a1a02d08bd61a6",
+      "src": "https://github.com/JavaHello/spring-boot.nvim"
+    },
     "tokyonight.nvim": {
       "rev": "5da1b76e64daf4c5d410f06bcb6b9cb640da7dfd",
       "src": "https://github.com/folke/tokyonight.nvim"

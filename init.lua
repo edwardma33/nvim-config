@@ -40,6 +40,7 @@ vim.pack.add({
   { src = gh("wojciech-kulik/xcodebuild.nvim") },
   { src = gh("marko-cerovac/material.nvim") },
   { src = gh("edwardma33/agent-orange") },
+  { src = gh("JavaHello/spring-boot.nvim") },
 })
 
 -- my modules

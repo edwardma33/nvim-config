@@ -39,3 +39,7 @@ vim.keymap.set("n", '<leader>l', function ()
   vim.wo.wrap = wrapped
   vim.wo.linebreak = wrapped
 end, { desc = "Toggle wrap and linebreak" })
+
+vim.api.nvim_create_user_command("SpringConfigSearch", function()
+  require("spring-config").search()
+end, { desc = "Search project Spring Boot configuration metadata" })
